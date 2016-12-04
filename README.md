@@ -38,16 +38,10 @@ Start the client:
     $ python skl_client.py
 
 
-# SKL Service
-
-## Build Docker images
+# Build Docker images
 
 Build the skl-server Docker image:
 
     $ docker build -f skl-server/Dockerfile \
       -t pprett/skl-server:0.0.1 \
       skl-server/
-
-Upload the skl-server image to a Docker registry:
-
-    $ docker push pprett/skl-server:0.0.1
