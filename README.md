@@ -1,3 +1,5 @@
+# WORK-IN-PROGRESS
+
 # Development
 
 Create a virtualenv:
@@ -17,12 +19,23 @@ Install dependencies:
 
 Build the server and client stubs from the proto files:
 
-    $ python -m grpc.tools.protoc -I../skl --python_out=. --grpc_python_out=. ../skl/skl.proto
+    $ python -m grpc.tools.protoc -Iskl --python_out=skl-server --grpc_python_out=skl-server skl/skl.proto
+    $ python -m grpc.tools.protoc -Iskl --python_out=skl-server --grpc_python_out=skl-server skl/predict.proto
+    $ python -m grpc.tools.protoc -Iskl --python_out=skl-server --grpc_python_out=skl-server skl/model.proto
+    $ python -m grpc.tools.protoc -Iskl --python_out=skl-server --grpc_python_out=skl-server skl/dataframe.proto
 
 
 # Testing
 
-...
+Start the server:
+
+    $ cd skl-server
+    $ python skl_server.py
+
+Start the client:
+
+    $ cd skl-server
+    $ python skl_client.py
 
 
 # SKL Service
