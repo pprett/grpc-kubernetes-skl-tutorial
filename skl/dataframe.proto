@@ -1,0 +1,46 @@
+syntax = "proto3";
+
+package skl;
+option cc_enable_arenas = true;
+
+
+// Labeled, column-major data structure that holds a mapping from field names to an
+// array of typed values.
+message DataFrameProto {
+  DataFrameShapeProto shape = 1;
+  map<string, ColumnProto> columns = 2;
+  repeated int64 index = 3;
+}
+
+
+message DataFrameShapeProto {
+  int32 n_rows = 1;
+  int32 n_columns = 2;
+}
+
+
+message ColumnProto {
+  DataType dtype = 1;
+  int32 n_rows = 2;
+
+  // DT_DOUBLE.
+  repeated double double_val = 3 [packed = true];
+
+  // DT_INT64
+  repeated int64 int64_val = 4 [packed = true];
+
+  // DT_STRING
+  repeated string string_val = 5;
+
+  // DT_BOOL
+  repeated bool bool_val = 6 [packed = true];
+
+}
+
+enum DataType {
+  DT_INVALID = 0;
+  DT_DOUBLE = 1;
+  DT_INT64 = 2;
+  DT_STRING = 3;
+  DT_BOOL = 4;
+}

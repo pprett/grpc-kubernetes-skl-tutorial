@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+package skl;
+option cc_enable_arenas = true;
+
+
+// Model Specification
+message ModelSpec {
+  string model_id = 1;
+}

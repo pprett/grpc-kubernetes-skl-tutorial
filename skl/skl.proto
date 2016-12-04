@@ -5,19 +5,12 @@
 syntax = "proto3";
 
 package skl;
+option cc_enable_arenas = true;
 
-// The SKL service definition.
-service Skl {
+import "predict.proto";
+
+// The Skl service definition.
+service PredictionService {
   // Returns a prediction
-  rpc Predict (Request) returns (Response);
-}
-
-// The request message containing the user's name.
-message Request {
-  string modelid = 1; 
-}
-
-// The response message containing the greeting.
-message Response {
-  double prediction = 1;	
+  rpc Predict (PredictionRequest) returns (PredictionResponse);
 }

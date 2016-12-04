@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+package skl;
+option cc_enable_arenas = true;
+
+import "dataframe.proto";
+import "model.proto";
+
+// PredictionRequest specifies the model to run and the inputs to it
+message PredictionRequest {
+  // Model Specification.
+  ModelSpec model_spec = 1;
+
+  // Input data represented as a DataFrame
+  DataFrameProto input = 2;
+}
+
+// Response for PredictionRequest on successful run.
+message PredictionResponse {
+  PredictionSpec prediction_spec = 1;
+  // Predictions for each row.
+  map<int64, double> outputs = 2;
+}
+
+message PredictionSpec {
+  int32 n_classes = 1;
+  bool cache_hit = 2;
+  int64 execution_time = 3;
+  repeated string class_names = 4;
+  string positive_class = 5;
+  string model_id = 6;
+}

@@ -13,98 +13,24 @@ from google.protobuf import descriptor_pb2
 _sym_db = _symbol_database.Default()
 
 
+import predict_pb2 as predict__pb2
 
 
 DESCRIPTOR = _descriptor.FileDescriptor(
   name='skl.proto',
   package='skl',
   syntax='proto3',
-  serialized_pb=_b('\n\tskl.proto\x12\x03skl\"\x1a\n\x07Request\x12\x0f\n\x07modelid\x18\x01 \x01(\t\"\x1e\n\x08Response\x12\x12\n\nprediction\x18\x01 \x01(\x01\x32-\n\x03Skl\x12&\n\x07Predict\x12\x0c.skl.Request\x1a\r.skl.Responseb\x06proto3')
-)
+  serialized_pb=_b('\n\tskl.proto\x12\x03skl\x1a\rpredict.proto2O\n\x11PredictionService\x12:\n\x07Predict\x12\x16.skl.PredictionRequest\x1a\x17.skl.PredictionResponseB\x03\xf8\x01\x01\x62\x06proto3')
+  ,
+  dependencies=[predict__pb2.DESCRIPTOR,])
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 
 
 
-_REQUEST = _descriptor.Descriptor(
-  name='Request',
-  full_name='skl.Request',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='modelid', full_name='skl.Request.modelid', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=18,
-  serialized_end=44,
-)
 
-
-_RESPONSE = _descriptor.Descriptor(
-  name='Response',
-  full_name='skl.Response',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='prediction', full_name='skl.Response.prediction', index=0,
-      number=1, type=1, cpp_type=5, label=1,
-      has_default_value=False, default_value=float(0),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=46,
-  serialized_end=76,
-)
-
-DESCRIPTOR.message_types_by_name['Request'] = _REQUEST
-DESCRIPTOR.message_types_by_name['Response'] = _RESPONSE
-
-Request = _reflection.GeneratedProtocolMessageType('Request', (_message.Message,), dict(
-  DESCRIPTOR = _REQUEST,
-  __module__ = 'skl_pb2'
-  # @@protoc_insertion_point(class_scope:skl.Request)
-  ))
-_sym_db.RegisterMessage(Request)
-
-Response = _reflection.GeneratedProtocolMessageType('Response', (_message.Message,), dict(
-  DESCRIPTOR = _RESPONSE,
-  __module__ = 'skl_pb2'
-  # @@protoc_insertion_point(class_scope:skl.Response)
-  ))
-_sym_db.RegisterMessage(Response)
-
-
+DESCRIPTOR.has_options = True
+DESCRIPTOR._options = _descriptor._ParseOptions(descriptor_pb2.FileOptions(), _b('\370\001\001'))
 import grpc
 from grpc.beta import implementations as beta_implementations
 from grpc.beta import interfaces as beta_interfaces
@@ -112,8 +38,8 @@ from grpc.framework.common import cardinality
 from grpc.framework.interfaces.face import utilities as face_utilities
 
 
-class SklStub(object):
-  """The SKL service definition.
+class PredictionServiceStub(object):
+  """The Skl service definition.
   """
 
   def __init__(self, channel):
@@ -123,14 +49,14 @@ class SklStub(object):
       channel: A grpc.Channel.
     """
     self.Predict = channel.unary_unary(
-        '/skl.Skl/Predict',
-        request_serializer=Request.SerializeToString,
-        response_deserializer=Response.FromString,
+        '/skl.PredictionService/Predict',
+        request_serializer=predict__pb2.PredictionRequest.SerializeToString,
+        response_deserializer=predict__pb2.PredictionResponse.FromString,
         )
 
 
-class SklServicer(object):
-  """The SKL service definition.
+class PredictionServiceServicer(object):
+  """The Skl service definition.
   """
 
   def Predict(self, request, context):
@@ -141,26 +67,26 @@ class SklServicer(object):
     raise NotImplementedError('Method not implemented!')
 
 
-def add_SklServicer_to_server(servicer, server):
+def add_PredictionServiceServicer_to_server(servicer, server):
   rpc_method_handlers = {
       'Predict': grpc.unary_unary_rpc_method_handler(
           servicer.Predict,
-          request_deserializer=Request.FromString,
-          response_serializer=Response.SerializeToString,
+          request_deserializer=predict__pb2.PredictionRequest.FromString,
+          response_serializer=predict__pb2.PredictionResponse.SerializeToString,
       ),
   }
   generic_handler = grpc.method_handlers_generic_handler(
-      'skl.Skl', rpc_method_handlers)
+      'skl.PredictionService', rpc_method_handlers)
   server.add_generic_rpc_handlers((generic_handler,))
 
 
-class BetaSklServicer(object):
+class BetaPredictionServiceServicer(object):
   """The Beta API is deprecated for 0.15.0 and later.
 
   It is recommended to use the GA API (classes and functions in this
   file not marked beta) for all further purposes. This class was generated
   only to ease transition from grpcio<0.15.0 to grpcio>=0.15.0."""
-  """The SKL service definition.
+  """The Skl service definition.
   """
   def Predict(self, request, context):
     """Returns a prediction
@@ -168,13 +94,13 @@ class BetaSklServicer(object):
     context.code(beta_interfaces.StatusCode.UNIMPLEMENTED)
 
 
-class BetaSklStub(object):
+class BetaPredictionServiceStub(object):
   """The Beta API is deprecated for 0.15.0 and later.
 
   It is recommended to use the GA API (classes and functions in this
   file not marked beta) for all further purposes. This class was generated
   only to ease transition from grpcio<0.15.0 to grpcio>=0.15.0."""
-  """The SKL service definition.
+  """The Skl service definition.
   """
   def Predict(self, request, timeout, metadata=None, with_call=False, protocol_options=None):
     """Returns a prediction
@@ -183,40 +109,40 @@ class BetaSklStub(object):
   Predict.future = None
 
 
-def beta_create_Skl_server(servicer, pool=None, pool_size=None, default_timeout=None, maximum_timeout=None):
+def beta_create_PredictionService_server(servicer, pool=None, pool_size=None, default_timeout=None, maximum_timeout=None):
   """The Beta API is deprecated for 0.15.0 and later.
 
   It is recommended to use the GA API (classes and functions in this
   file not marked beta) for all further purposes. This function was
   generated only to ease transition from grpcio<0.15.0 to grpcio>=0.15.0"""
   request_deserializers = {
-    ('skl.Skl', 'Predict'): Request.FromString,
+    ('skl.PredictionService', 'Predict'): predict__pb2.PredictionRequest.FromString,
   }
   response_serializers = {
-    ('skl.Skl', 'Predict'): Response.SerializeToString,
+    ('skl.PredictionService', 'Predict'): predict__pb2.PredictionResponse.SerializeToString,
   }
   method_implementations = {
-    ('skl.Skl', 'Predict'): face_utilities.unary_unary_inline(servicer.Predict),
+    ('skl.PredictionService', 'Predict'): face_utilities.unary_unary_inline(servicer.Predict),
   }
   server_options = beta_implementations.server_options(request_deserializers=request_deserializers, response_serializers=response_serializers, thread_pool=pool, thread_pool_size=pool_size, default_timeout=default_timeout, maximum_timeout=maximum_timeout)
   return beta_implementations.server(method_implementations, options=server_options)
 
 
-def beta_create_Skl_stub(channel, host=None, metadata_transformer=None, pool=None, pool_size=None):
+def beta_create_PredictionService_stub(channel, host=None, metadata_transformer=None, pool=None, pool_size=None):
   """The Beta API is deprecated for 0.15.0 and later.
 
   It is recommended to use the GA API (classes and functions in this
   file not marked beta) for all further purposes. This function was
   generated only to ease transition from grpcio<0.15.0 to grpcio>=0.15.0"""
   request_serializers = {
-    ('skl.Skl', 'Predict'): Request.SerializeToString,
+    ('skl.PredictionService', 'Predict'): predict__pb2.PredictionRequest.SerializeToString,
   }
   response_deserializers = {
-    ('skl.Skl', 'Predict'): Response.FromString,
+    ('skl.PredictionService', 'Predict'): predict__pb2.PredictionResponse.FromString,
   }
   cardinalities = {
     'Predict': cardinality.Cardinality.UNARY_UNARY,
   }
   stub_options = beta_implementations.stub_options(host=host, metadata_transformer=metadata_transformer, request_serializers=request_serializers, response_deserializers=response_deserializers, thread_pool=pool, thread_pool_size=pool_size)
-  return beta_implementations.dynamic_stub(channel, 'skl.Skl', cardinalities, options=stub_options)
+  return beta_implementations.dynamic_stub(channel, 'skl.PredictionService', cardinalities, options=stub_options)
 # @@protoc_insertion_point(module_scope)
